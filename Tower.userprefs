@@ -1,9 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Resources/Scripts/SettingScene.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Resources/Scripts/LoginScene.cs">
     <Files>
-      <File FileName="Assets/Resources/Scripts/Setting.cs" Line="16" Column="2" />
-      <File FileName="Assets/Resources/Scripts/SettingScene.cs" Line="18" Column="3" />
+      <File FileName="Assets/Resources/Scripts/SettingScene.cs" Line="6" Column="16" />
+      <File FileName="Assets/Resources/Scripts/LoginScene.cs" Line="8" Column="20" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
