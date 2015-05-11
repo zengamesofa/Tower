@@ -4,7 +4,7 @@ using System.Collections;
 public class LoginScene : MonoBehaviour {
 
 	public GameObject earth;
-	public GameObject comet;
+	public GameObject background;
 
 	// Use this for initialization
 	void Start () {
@@ -14,15 +14,15 @@ public class LoginScene : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		earth.transform.Rotate(Vector3.forward, 1 * Time.deltaTime);
-//		comet.transform.RotateAround (new Vector3(336, -121, 0), new Vector3(10, 10, 50), Time.deltaTime * 0.5);
+		background.transform.localScale += new Vector3 (0.02f, 0.02f, 0);
 	}
 
 	public void SingleClick(){
-//		Application.LoadLevel(1);
+		Application.LoadLevel(2);
 	}
 
 	public void MultiplayerClick(){
-//		Application.LoadLevel(1);
+		Application.LoadLevel(2);
 	}
 
 	public void SettingClick(){
