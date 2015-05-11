@@ -24,13 +24,17 @@ public class Control : MonoBehaviour {
 	int count = 0;
 	bool isSky = false;
 
+    int topIndex = 0;
+
 	void Awake () {
 		towerBoxList = new List<TowerBox> ();
 		CreateTower ();
-
-
 	}
-	
+
+    void OnDestroy() {
+        iTween.Stop();
+    }
+
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetMouseButtonDown (0)) {
@@ -55,22 +59,28 @@ public class Control : MonoBehaviour {
 		towerBoxList.Add (towerBox);
 	}
 
-	void OnCollision(string _tag, int _towerIndex){
+	void OnCollision(string _tag, int _towerIndex, int _topIndex){
 		Debug.Log ("_tag:" + _tag + " _towerIndex:" + _towerIndex);
 		towerBox.OnCollision -= OnCollision;
 		CreateTower ();
 
-		Debug.Log (towerBoxList.Count +" / "+_towerIndex);
+        
 
-		if (_tag == "Tower" && towerBoxList.Count >=2 ) {
-			float dec = towerBoxList[towerBoxList.Count -1].transform.localPosition.y-1;
+		if (_tag == "Tower" ) {
 
-			iTween.MoveBy (towerListParent, iTween.Hash ("y", dec, "time", 0.5, "easetype", iTween.EaseType.easeInOutExpo));
+            if (towerBoxList.Count >= 2)
+            {
+                float dec = towerBoxList[towerBoxList.Count - 1].transform.localPosition.y - 1;
 
+                Debug.Log(towerBoxList.Count + " / Collision_towerIndex:" + _towerIndex + " / top:" + _topIndex);
+                iTween.MoveBy(towerListParent, iTween.Hash("y", dec, "time", 0.5, "easetype", iTween.EaseType.linear));
+            }
 
-			//iTween.RotateBy(towerListParent, iTween.Hash("z", .1, "easeType", "easeInOutBack", "loopType", "pingPong", "delay", .4));
-			//iTween.RotateTo(towerListParent, iTween.Hash("z", .03, "easeType", "easeInOutBack", "loopType", "pingPong", "delay", .4));
-			//iTween.MoveBy(towerListParent, iTween.Hash("x", 2, "easeType", "easeInOutExpo", "loopType", "pingPong", "delay", .3));
+            if (towerBoxList.Count >= 7)
+            {
+                if (towerListParent.GetComponent<DropShadowAnim>() == null)
+                    towerListParent.AddComponent<DropShadowAnim>();
+            }
 		}
 	}
 }

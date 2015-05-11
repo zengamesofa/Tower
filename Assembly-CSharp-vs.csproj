@@ -184,6 +184,7 @@
      <Compile Include="Assets\Pixelplacement\iTweenPath\iTweenPath.cs" />
      <Compile Include="Assets\Script\AudioEx.cs" />
      <Compile Include="Assets\Script\GameScene\Control.cs" />
+     <Compile Include="Assets\Script\GameScene\DropShadowAnim.cs" />
      <Compile Include="Assets\Script\GameScene\ItweenCube.cs" />
      <Compile Include="Assets\Script\GameScene\ItweenTower.cs" />
      <Compile Include="Assets\Script\GameScene\MyLineRenderer.cs" />

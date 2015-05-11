@@ -4,7 +4,7 @@ using System;
 
 public class TowerBox : MonoBehaviour {
 
-	public Action<string, int> OnCollision = null;
+	public Action<string, int, int> OnCollision = null;
 	public Rigidbody towerRigidbody = null;
 	private BoxCollider towerBoxCollider = null;
 
@@ -35,13 +35,16 @@ public class TowerBox : MonoBehaviour {
 		switch (collision.gameObject.tag) {
 		case "Floor":
 			if(OnCollision != null)
-				OnCollision("Floor", 0);
+				OnCollision("Floor", 0, 0);
 			break;
 		case "Tower":
-			if(OnCollision != null){
-				string[] _tower = collision.gameObject.name.Split('_');
-				OnCollision("Tower", Convert.ToInt32(_tower[1]));
-			}
+            if (OnCollision != null)
+            {
+                string[] _mytower = this.gameObject.name.Split('_');
+
+                string[] _tower = collision.gameObject.name.Split('_');
+                OnCollision("Tower", Convert.ToInt32(_tower[1]), Convert.ToInt32(_mytower[1]));
+            }
 			break;
 		}
 

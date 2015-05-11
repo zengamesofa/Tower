@@ -18,7 +18,7 @@ public class LoginScene : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		earth.transform.Rotate(Vector3.forward, 1 * Time.deltaTime);
+		earth.transform.Rotate(Vector3.forward, 3 * Time.deltaTime);
 		background.transform.localScale += new Vector3 (0.02f, 0.02f, 0);
 	}
 
