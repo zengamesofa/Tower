@@ -182,6 +182,7 @@
      <Compile Include="Assets\NGUI\Scripts\UI\UITooltip.cs" />
      <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
      <Compile Include="Assets\Pixelplacement\iTweenPath\iTweenPath.cs" />
+     <Compile Include="Assets\Script\AudioEx.cs" />
      <Compile Include="Assets\Script\GameScene\Control.cs" />
      <Compile Include="Assets\Script\GameScene\ItweenCube.cs" />
      <Compile Include="Assets\Script\GameScene\ItweenTower.cs" />

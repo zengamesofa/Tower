@@ -5,6 +5,11 @@ public class LoginScene : MonoBehaviour {
 
 	public GameObject earth;
 	public GameObject background;
+	public GameObject music;
+
+	void Awake () {
+		DontDestroyOnLoad(music);
+	}
 
 	// Use this for initialization
 	void Start () {

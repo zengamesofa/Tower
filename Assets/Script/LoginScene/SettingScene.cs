@@ -3,9 +3,10 @@ using System.Collections;
 
 public class SettingScene : MonoBehaviour {
 
+	//public float num = 0.5;
 	// Use this for initialization
 	void Start () {
-		Debug.Log ("test");
+
 	}
 	
 	// Update is called once per frame
@@ -14,7 +15,12 @@ public class SettingScene : MonoBehaviour {
 	}
 
 	public void OnClick(){
-		Debug.Log ("onClick");
 		Application.LoadLevel(0);
+	}
+
+	public void OnValueChange()
+	{
+		AudioEx.Instance.setMusicSound (UIProgressBar.current.value);
+		Debug.Log ("change:" + UIProgressBar.current.value);
 	}
 }
