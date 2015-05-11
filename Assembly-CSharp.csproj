@@ -181,9 +181,8 @@
      <Compile Include="Assets\NGUI\Scripts\UI\UITexture.cs" />
      <Compile Include="Assets\NGUI\Scripts\UI\UITooltip.cs" />
      <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
-     <Compile Include="Assets\Resources\Scripts\LoginScene.cs" />
-     <Compile Include="Assets\Resources\Scripts\SettingScene.cs" />
-     <Compile Include="Assets\Script\LoginScene\Login.cs" />
+     <Compile Include="Assets\Script\LoginScene\LoginScene.cs" />
+     <Compile Include="Assets\Script\LoginScene\SettingScene.cs" />
      <None Include="Assets\NGUI\Examples\Shaders\Unlit - Depth Cutout.shader" />
      <None Include="Assets\NGUI\ReadMe - 3.7.8.txt" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Text 2.shader" />
