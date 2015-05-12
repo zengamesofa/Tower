@@ -6,17 +6,22 @@ public class AudioEx : MonoBehaviour
 	public static AudioEx Instance = null;
 
 	public AudioSource Music;
+	public AudioSource Sound;
 
-    //[SerializeField]
-	//public static AudioSource Music = null;
+	static private float musicVolume;
+	static private float soundVolume;
 
-    //[SerializeField]
-	//public static AudioClip background_music = null;
+	public int position = 0;
+	public int samplerate = 44100;
+	public float frequency = 440;
 
 	void Awake()
 	{
 		if (Instance == null)
 			Instance = this;
+
+		soundVolume = 0.5f;
+		musicVolume = 0.5f;
 	}
 
     void Start()
@@ -27,9 +32,33 @@ public class AudioEx : MonoBehaviour
 
     }
 
+	public float getMusicVolume()
+	{
+		return musicVolume;
+	}
+
+	public float getSoundVolume()
+	{
+		return soundVolume;
+	}
+
 	public void setMusicSound(float num)
 	{
-		//Debug.Log ("play sound:" + num);
-		Music.volume = num;
+		Debug.Log ("play music:" + num);
+		Music.volume = musicVolume = num;
+	}
+
+	public void setSoundVolume(float num)
+	{
+		Debug.Log ("play sound:" + num);
+		soundVolume = num;
+	}
+
+	public void playSound(string filename)
+	{
+		AudioClip myClip = Resources.Load ("Sound/button", typeof(AudioClip)) as AudioClip;
+		Sound.clip = myClip;
+		Sound.volume = soundVolume;
+		Sound.Play ();
 	}
 }

@@ -24,17 +24,20 @@ public class LoginScene : MonoBehaviour {
 
 	public void SingleClick(){
 		Application.LoadLevel(2);
+		AudioEx.Instance.playSound ("button");
 	}
 
 	public void MultiplayerClick(){
 		Application.LoadLevel(2);
+		AudioEx.Instance.playSound ("button");
 	}
 
 	public void SettingClick(){
 		Application.LoadLevel(1);
+		AudioEx.Instance.playSound ("button");
 	}
 
 	public void ExitClick(){
-//		Application.LoadLevel(1);
+		AudioEx.Instance.playSound ("button2");
 	}
 }

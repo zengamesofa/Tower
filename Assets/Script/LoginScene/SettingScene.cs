@@ -20,7 +20,24 @@ public class SettingScene : MonoBehaviour {
 
 	public void OnValueChange()
 	{
-		AudioEx.Instance.setMusicSound (UIProgressBar.current.value);
-		Debug.Log ("change:" + UIProgressBar.current.value);
+		if (AudioEx.Instance) {
+			AudioEx.Instance.setMusicSound (UIProgressBar.current.value);
+			Debug.Log ("change music:" + UIProgressBar.current.value);
+		}
+	}
+
+	public void OnValueChangeSound()
+	{
+		if (AudioEx.Instance) {
+			AudioEx.Instance.setSoundVolume (UIProgressBar.current.value);
+			Debug.Log ("change sound:" + UIProgressBar.current.value);
+		}
+	}
+
+	public void OnValueChangeSoundEnd()
+	{
+		if (AudioEx.Instance) {
+
+		}
 	}
 }
