@@ -1,0 +1,9 @@
+git status 觀看檔案狀態
+
+git pull 抓檔案
+
+git add -A Add全部的檔案
+git commit -m “丟什麼note”
+git push 丟檔案上去
+
+
