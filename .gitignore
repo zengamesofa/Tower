@@ -1,2 +1,6 @@
 Library/
 Temp/
+Assembly*.*
+Tower-csharp.sln
+Tower.sln
+Tower.userprefs
