@@ -52,6 +52,8 @@ public class AudioEx : MonoBehaviour
 	{
 		Debug.Log ("play sound:" + num);
 		soundVolume = num;
+
+		this.playSound ("button2");
 	}
 
 	public void playSound(string filename)
