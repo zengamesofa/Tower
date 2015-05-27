@@ -5,5 +5,6 @@ git pull 抓檔案
 git add -A Add全部的檔案
 git commit -m “丟什麼note”
 git push 丟檔案上去
+git push origin master 
 
 
