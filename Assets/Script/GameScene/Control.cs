@@ -5,8 +5,11 @@ using System.Collections.Generic;
 
 public class Control : MonoBehaviour {
 
+<<<<<<< HEAD
     public static Control instance = null;
 
+=======
+>>>>>>> origin/master
 	[SerializeField]
 	private GameObject floor;
 	
@@ -19,7 +22,11 @@ public class Control : MonoBehaviour {
 	[SerializeField]
 	private GameObject modelPrefab;
 
+<<<<<<< HEAD
 	public List<TowerBox> towerBoxList = null;
+=======
+	List<TowerBox> towerBoxList = null;
+>>>>>>> origin/master
 	GameObject tower = null;
 	TowerBox towerBox = null;
 
@@ -29,8 +36,11 @@ public class Control : MonoBehaviour {
     int topIndex = 0;
 
 	void Awake () {
+<<<<<<< HEAD
         instance = this;
 
+=======
+>>>>>>> origin/master
 		towerBoxList = new List<TowerBox> ();
 		CreateTower ();
 	}
@@ -58,29 +68,55 @@ public class Control : MonoBehaviour {
 		tower.transform.localScale = new Vector3 (0.2f, 0.2f, 0.2f);
 
 		towerBox = tower.AddComponent<TowerBox> ();
+<<<<<<< HEAD
         towerBox.towerBoxID = count;
 
+=======
+>>>>>>> origin/master
 		towerBox.OnCollision += OnCollision;
 
 		towerBoxList.Add (towerBox);
 	}
 
+<<<<<<< HEAD
 	void OnCollision(string _tag, int _towerIndex, int _topIndex)
     {
+=======
+	void OnCollision(string _tag, int _towerIndex, int _topIndex){
+>>>>>>> origin/master
 		Debug.Log ("_tag:" + _tag + " _towerIndex:" + _towerIndex);
 		towerBox.OnCollision -= OnCollision;
 		CreateTower ();
 
+<<<<<<< HEAD
 		if (_tag == "Tower" )
         {
             if (towerBoxList.Count >= 2)
             {
                 towerBoxList[towerBoxList.Count - 2].lockshaking = false;
                 float dec = towerBoxList[towerBoxList.Count - 1].transform.localPosition.y - 1f;
+=======
+        
+
+		if (_tag == "Tower" ) {
+
+            if (towerBoxList.Count >= 2)
+            {
+                float dec = towerBoxList[towerBoxList.Count - 1].transform.localPosition.y - 1;
+>>>>>>> origin/master
 
                 Debug.Log(towerBoxList.Count + " / Collision_towerIndex:" + _towerIndex + " / top:" + _topIndex);
                 iTween.MoveBy(towerListParent, iTween.Hash("y", dec, "time", 0.5, "easetype", iTween.EaseType.linear));
             }
+<<<<<<< HEAD
+=======
+
+            if (towerBoxList.Count >= 7)
+            {
+                if (towerListParent.GetComponent<DropShadowAnim>() == null)
+                    towerListParent.AddComponent<DropShadowAnim>();
+            }
+>>>>>>> origin/master
 		}
 	}
 }

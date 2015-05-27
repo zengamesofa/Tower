@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 
+<<<<<<< HEAD
 public class TowerBox : MonoBehaviour
 {
 
@@ -19,6 +20,14 @@ public class TowerBox : MonoBehaviour
 
     private Transform trans;
 
+=======
+public class TowerBox : MonoBehaviour {
+
+	public Action<string, int, int> OnCollision = null;
+	public Rigidbody towerRigidbody = null;
+	private BoxCollider towerBoxCollider = null;
+
+>>>>>>> origin/master
 	void Awake(){
 		towerBoxCollider = this.gameObject.AddComponent<BoxCollider> ();
 		towerBoxCollider.center = new Vector3 (0f, 5f, 0f);
@@ -28,6 +37,7 @@ public class TowerBox : MonoBehaviour
 		towerRigidbody.mass = 2;
 		towerRigidbody.useGravity = false;
 	}
+<<<<<<< HEAD
 
     void Start()
     {
@@ -51,6 +61,13 @@ public class TowerBox : MonoBehaviour
             trans.localEulerAngles = new Vector3(x, 0, 0);
         }
     }
+=======
+	
+	// Update is called once per frame
+	void Update () {
+	
+	}
+>>>>>>> origin/master
 
 	void OnCollisionEnter(Collision collision){
 		Debug.Log ("TowerBox OnCollisionEnter: " + collision.gameObject.name + " tag: " + collision.gameObject.tag);
@@ -66,6 +83,7 @@ public class TowerBox : MonoBehaviour
 			if(OnCollision != null)
 				OnCollision("Floor", 0, 0);
 			break;
+<<<<<<< HEAD
 		case "Tower":
             if (OnCollision != null)
             {
@@ -75,6 +93,15 @@ public class TowerBox : MonoBehaviour
                 OnCollision("Tower", Convert.ToInt32(_tower[1]), Convert.ToInt32(_mytower[1]));
 
                 this.transform.parent = collision.gameObject.transform;
+=======
+		case "Tower":
+            if (OnCollision != null)
+            {
+                string[] _mytower = this.gameObject.name.Split('_');
+
+                string[] _tower = collision.gameObject.name.Split('_');
+                OnCollision("Tower", Convert.ToInt32(_tower[1]), Convert.ToInt32(_mytower[1]));
+>>>>>>> origin/master
             }
 			break;
 		}

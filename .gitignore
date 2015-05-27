@@ -3,4 +3,9 @@ Temp/
 Assembly*.*
 Tower-csharp.sln
 Tower.sln
+<<<<<<< HEAD
 Tower.userprefs
+=======
+Tower.userprefs
+.DS_Store
+>>>>>>> origin/master
