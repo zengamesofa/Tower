@@ -5,7 +5,7 @@ public class UIControl : MonoBehaviour {
 
 	public UISlider timeSlider;
 	public UILabel peopleNumLabel;
-	public UILabel houseNumLabel;
+    public UILabel houseNumLabel;
 
 	//new Time
 	public float time;

@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 public class Control : MonoBehaviour {
 
+    public static Control instance = null;
+
 	[SerializeField]
 	private GameObject floor;
 	
@@ -17,7 +19,7 @@ public class Control : MonoBehaviour {
 	[SerializeField]
 	private GameObject modelPrefab;
 
-	List<TowerBox> towerBoxList = null;
+	public List<TowerBox> towerBoxList = null;
 	GameObject tower = null;
 	TowerBox towerBox = null;
 
@@ -26,9 +28,27 @@ public class Control : MonoBehaviour {
 
     int topIndex = 0;
 
+	//UI control
+	UILabel houseUILabel;
+	UISlider timeSlider;
+	UIProgressBar timeProgressBar;
+
 	void Awake () {
+        instance = this;
+
 		towerBoxList = new List<TowerBox> ();
 		CreateTower ();
+
+		GameObject uiHouseNumber = GameObject.Find("UI_House_Number");
+		UILabel houseUI = uiHouseNumber.GetComponent("UILabel") as UILabel;
+		houseUILabel = houseUI;
+
+		GameObject uiTimeSlider = GameObject.Find("Time_Progress_Bar");
+		UISlider timeProgressBarObject = uiTimeSlider.GetComponent ("UISlider") as UISlider;
+		timeSlider = timeProgressBarObject;
+
+//		UISlider timeSliderObject = uiTimeSlider.GetComponent("UISlider") as UISlider;
+//		timeSlider = timeSliderObject;
 	}
 
     void OnDestroy() {
@@ -54,33 +74,45 @@ public class Control : MonoBehaviour {
 		tower.transform.localScale = new Vector3 (0.2f, 0.2f, 0.2f);
 
 		towerBox = tower.AddComponent<TowerBox> ();
+        towerBox.towerBoxID = count;
+
 		towerBox.OnCollision += OnCollision;
 
 		towerBoxList.Add (towerBox);
 	}
 
-	void OnCollision(string _tag, int _towerIndex, int _topIndex){
+	void OnCollision(string _tag, int _towerIndex, int _topIndex)
+    {
+		updateUIDate (_topIndex);
+
 		Debug.Log ("_tag:" + _tag + " _towerIndex:" + _towerIndex);
+
 		towerBox.OnCollision -= OnCollision;
 		CreateTower ();
 
-        
-
-		if (_tag == "Tower" ) {
-
+		if (_tag == "Tower" )
+        {
             if (towerBoxList.Count >= 2)
             {
-                float dec = towerBoxList[towerBoxList.Count - 1].transform.localPosition.y - 1;
+                towerBoxList[towerBoxList.Count - 2].lockshaking = false;
+                float dec = towerBoxList[towerBoxList.Count - 1].transform.localPosition.y - 1f;
 
                 Debug.Log(towerBoxList.Count + " / Collision_towerIndex:" + _towerIndex + " / top:" + _topIndex);
                 iTween.MoveBy(towerListParent, iTween.Hash("y", dec, "time", 0.5, "easetype", iTween.EaseType.linear));
             }
+		}
+	}
 
-            if (towerBoxList.Count >= 7)
-            {
-                if (towerListParent.GetComponent<DropShadowAnim>() == null)
-                    towerListParent.AddComponent<DropShadowAnim>();
-            }
+	void updateUIDate(int _topIndex){
+
+		Debug.Log ("_topIndex" + _topIndex);
+		houseUILabel.text = (_topIndex+1).ToString();		   //change house number
+//		if (_topIndex == 0)
+		{
+//			Debug.Log ("_sliderValue" + timeSlider.sliderValue);
+			timeSlider.value = timeSlider.value++;
+//			timeSlider.sliderValue = 0.1f;
+//			timeSlider.value = 0.1f;
 		}
 	}
 }
