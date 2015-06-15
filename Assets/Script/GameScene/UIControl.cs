@@ -35,8 +35,8 @@ public class UIControl : MonoBehaviour {
 		timeSlider.sliderValue = time / maxTime;
 
 		//Bar Shining
-//		this.barShiningAnimation ();
 		StartCoroutine ("barShiningAnimation");
+
 		//GameOver
 		if (time == 0) 
 		{
@@ -59,7 +59,6 @@ public class UIControl : MonoBehaviour {
 			yield return new WaitForSeconds (0.5f);
 			isShining = false;
 		}
-
 	}
 
     public void setPeopleNumber(int number)
