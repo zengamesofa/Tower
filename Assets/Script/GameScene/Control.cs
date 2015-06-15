@@ -106,7 +106,9 @@ public class Control : MonoBehaviour {
 	void updateUIDate(int _topIndex){
 
 		Debug.Log ("_topIndex" + _topIndex);
-		houseUILabel.text = (_topIndex+1).ToString();		   //change house number
+//		houseUILabel.text = (_topIndex+1).ToString();		   //change house number
+		UIControl.Instance.setHouseNumber (_topIndex+1);		//change house number
+		UIControl.Instance.setTimeBarNumber (5);
 //		if (_topIndex == 0)
 		{
 //			Debug.Log ("_sliderValue" + timeSlider.sliderValue);

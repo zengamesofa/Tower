@@ -3,8 +3,10 @@ using System.Collections;
 
 public class UIControl : MonoBehaviour {
 
+	public static UIControl Instance = null;
+
 	public UISlider timeSlider;
-	public UILabel peopleNumLabel;
+    public UILabel peopleNumLabel;
     public UILabel houseNumLabel;
 
 	//new Time
@@ -14,6 +16,13 @@ public class UIControl : MonoBehaviour {
 	//Game value
 	public float disTime;
 
+	//Control Bar Shinging 
+	private bool isShining = false;
+
+	void Awake(){
+		if (Instance == null)
+			Instance = this;
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -24,15 +33,50 @@ public class UIControl : MonoBehaviour {
 
 		time = time - disTime;
 		timeSlider.sliderValue = time / maxTime;
+
+		//Bar Shining
+//		this.barShiningAnimation ();
+		StartCoroutine ("barShiningAnimation");
+		//GameOver
+		if (time == 0) 
+		{
+
+		}
 	}
 
-    void setPeopleNumber(int number)
+	IEnumerator barShiningAnimation()
+	{
+		if (time < 30 && isShining == false) {
+			timeSlider.foregroundWidget.color = new Color (255, 0, 0);
+			timeSlider.backgroundWidget.color = new Color (255, 0, 0);
+			yield return new WaitForSeconds (0.5f);
+			isShining = true;
+		} 
+		else if (isShining == true) 
+		{
+			timeSlider.foregroundWidget.color = new Color (0, 255, 0);
+			timeSlider.backgroundWidget.color = new Color (255, 255, 255);
+			yield return new WaitForSeconds (0.5f);
+			isShining = false;
+		}
+
+	}
+
+    public void setPeopleNumber(int number)
 	{
 		peopleNumLabel.text = "" + number;
 	}
 
-    void setHouseNumber(int number)
+ 	public void setHouseNumber(int number)
 	{
-		houseNumLabel.text = "" + number;
+		Debug.Log ("houseNumber" + number);
+		houseNumLabel.text = number.ToString();
+	}
+
+	public void setTimeBarNumber(int addTime)
+	{
+		time = time + addTime;
+		if (time > 100)
+			time = 100;
 	}
 }
