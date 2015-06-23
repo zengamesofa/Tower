@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class Control : MonoBehaviour {
 
     public static Control instance = null;
+    public List<TowerBox> towerBoxList = null;
 
 	[SerializeField]
 	private GameObject floor;
@@ -19,19 +20,21 @@ public class Control : MonoBehaviour {
 	[SerializeField]
 	private GameObject modelPrefab;
 
-	public List<TowerBox> towerBoxList = null;
-	GameObject tower = null;
-	TowerBox towerBox = null;
+    [SerializeField]
+    private GameObject effectPrefab;
 
-	int count = 0;
-	bool isSky = false;
-
-    int topIndex = 0;
+    private GameObject effectObj = null;
+    private GameObject tower = null;
+    private TowerBox towerBox = null;
+    private int count = 0;
+    private bool isSky = false;
+    private int topIndex = 0;
+    private int failCount = 0;
 
 	//UI control
-	UILabel houseUILabel;
-	UISlider timeSlider;
-	UIProgressBar timeProgressBar;
+    private UILabel houseUILabel;
+    private UISlider timeSlider;
+    private UIProgressBar timeProgressBar;
 
 	void Awake () {
         instance = this;
@@ -78,36 +81,61 @@ public class Control : MonoBehaviour {
 
 		towerBox.OnCollision += OnCollision;
 
-		towerBoxList.Add (towerBox);
+        
 	}
 
-	void OnCollision(string _tag, int _towerIndex, int _topIndex)
-    {
-		updateUIDate (_topIndex);
+    private int nowTop = 0;
 
-		Debug.Log ("_tag:" + _tag + " _towerIndex:" + _towerIndex);
+	void OnCollision(string _tag, GameObject _towerObj, int _towerIndex, int _topIndex)
+    {
+
+
+        Debug.Log("_tag:" + _tag + " _towerIndex:" + _towerIndex + " _topIndex:" + _topIndex + " count:" + count);
 
 		towerBox.OnCollision -= OnCollision;
 		CreateTower ();
 
-		if (_tag == "Tower" )
-        {
-            if (towerBoxList.Count >= 2)
-            {
-                towerBoxList[towerBoxList.Count - 2].lockshaking = false;
-                float dec = towerBoxList[towerBoxList.Count - 1].transform.localPosition.y - 1f;
+		if (_tag == "Tower") {
+			//正確最頂的房子
+			if (_towerIndex == nowTop) {
+				towerBoxList.Add (towerBox);
+				updateUIDate ();
 
-                Debug.Log(towerBoxList.Count + " / Collision_towerIndex:" + _towerIndex + " / top:" + _topIndex);
-                iTween.MoveBy(towerListParent, iTween.Hash("y", dec, "time", 0.5, "easetype", iTween.EaseType.linear));
-            }
+				nowTop = _topIndex;
+
+				if (towerBoxList.Count >= 1) {
+					if (effectObj == null)
+						effectObj = Instantiate (effectPrefab);
+					else {
+						effectObj.SetActive (false);
+						effectObj.SetActive (true);
+					}
+					effectObj.transform.parent = _towerObj.transform;
+					effectObj.transform.localPosition = _towerObj.transform.localPosition;
+
+					if (towerBoxList.Count >= 2)
+						towerBoxList [towerBoxList.Count - 2].lockshaking = false;
+
+					float dec = towerBoxList [towerBoxList.Count - 1].transform.localPosition.y - 1f;
+
+					iTween.MoveBy (towerListParent, iTween.Hash ("y", dec, "time", 0.5, "easetype", iTween.EaseType.linear));
+				}
+
+			} else {
+				failCount++;
+				Debug.Log ("失敗次數:" + failCount);
+			}
+
+		} 
+		else if (_tag == "Floor" && towerBoxList.Count == 0) 
+		{
+			updateUIDate();
 		}
 	}
 
-	void updateUIDate(int _topIndex){
+	void updateUIDate(){
 
-		Debug.Log ("_topIndex" + _topIndex);
-//		houseUILabel.text = (_topIndex+1).ToString();		   //change house number
-		UIControl.Instance.setHouseNumber (_topIndex+1);		//change house number
+		UIControl.Instance.setHouseNumber (towerBoxList.Count + 1);		//change house number
 		UIControl.Instance.setTimeBarNumber (5);
 //		if (_topIndex == 0)
 		{

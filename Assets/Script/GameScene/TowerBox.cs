@@ -5,7 +5,7 @@ using System;
 public class TowerBox : MonoBehaviour
 {
 
-    public Action<string, int, int> OnCollision = null;
+    public Action<string, GameObject, int, int> OnCollision = null;
     public int towerBoxID = 0;
     public bool lockshaking = true; 
 
@@ -53,7 +53,7 @@ public class TowerBox : MonoBehaviour
     }
 
 	void OnCollisionEnter(Collision collision){
-		Debug.Log ("TowerBox OnCollisionEnter: " + collision.gameObject.name + " tag: " + collision.gameObject.tag);
+		//Debug.Log ("TowerBox OnCollisionEnter: " + collision.gameObject.name + " tag: " + collision.gameObject.tag);
 
 		if(towerRigidbody != null) {
 			towerRigidbody.useGravity = false;
@@ -64,7 +64,7 @@ public class TowerBox : MonoBehaviour
 		switch (collision.gameObject.tag) {
 		case "Floor":
 			if(OnCollision != null)
-				OnCollision("Floor", 0, 0);
+                OnCollision("Floor", collision.gameObject, 0, 0);
 			break;
 		case "Tower":
             if (OnCollision != null)
@@ -72,7 +72,7 @@ public class TowerBox : MonoBehaviour
                 string[] _mytower = this.gameObject.name.Split('_');
 
                 string[] _tower = collision.gameObject.name.Split('_');
-                OnCollision("Tower", Convert.ToInt32(_tower[1]), Convert.ToInt32(_mytower[1]));
+                OnCollision("Tower", collision.gameObject , Convert.ToInt32(_tower[1]), Convert.ToInt32(_mytower[1]));
 
                 this.transform.parent = collision.gameObject.transform;
             }
