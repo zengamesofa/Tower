@@ -8,6 +8,8 @@ public class UIControl : MonoBehaviour {
 	public UISlider timeSlider;
     public UILabel peopleNumLabel;
     public UILabel houseNumLabel;
+	public UIPopupList popupList;
+	public UILabel gameOverLabel;
 
 	//new Time
 	public float time;
@@ -22,6 +24,8 @@ public class UIControl : MonoBehaviour {
 	void Awake(){
 		if (Instance == null)
 			Instance = this;
+
+		EventDelegate.Add (popupList.onChange, OnControllerChange);
 	}
 
 	// Use this for initialization
@@ -31,16 +35,19 @@ public class UIControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		time = time - disTime;
-		timeSlider.sliderValue = time / maxTime;
+		if (time > 0) 
+		{
+			time = time - disTime;
+			timeSlider.sliderValue = time / maxTime;
 
-		//Bar Shining
-		StartCoroutine ("barShiningAnimation");
+			//Bar Shining
+			StartCoroutine ("barShiningAnimation");
+		}
 
 		//GameOver
-		if (time == 0) 
+		if (time <= 0) 
 		{
-
+			gameOverLabel.transform.position = Vector3.MoveTowards(gameOverLabel.transform.position, transform.position,  2* Time.deltaTime);
 		}
 	}
 
@@ -77,5 +84,31 @@ public class UIControl : MonoBehaviour {
 		time = time + addTime;
 		if (time > 100)
 			time = 100;
+	}
+
+	public float getTime()
+	{
+		return time;
+	}
+
+	public void OnControllerChange()
+	{
+		int selectedIndex = popupList.items.IndexOf(popupList.value);
+		Debug.Log ("which touch :"+selectedIndex);
+
+		switch (selectedIndex) 
+		{
+		case 0:
+			//contiune
+			break;
+		case 1:
+			//option
+			Application.LoadLevel(1);
+			break;
+		case 2:
+			//exit
+			Application.LoadLevel(0);
+			break;
+		}
 	}
 }

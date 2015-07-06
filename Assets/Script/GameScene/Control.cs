@@ -35,6 +35,7 @@ public class Control : MonoBehaviour {
     private UILabel houseUILabel;
     private UISlider timeSlider;
     private UIProgressBar timeProgressBar;
+	public GameObject particle;
 
 	void Awake () {
         instance = this;
@@ -60,10 +61,18 @@ public class Control : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetMouseButtonDown (0)) {
-			isSky = true;
-			towerBox.towerRigidbody.useGravity = true;
-			tower.transform.parent = towerListParent.transform;
+
+		if (UIControl.Instance.getTime() > 0) 
+		{
+			if (Input.GetMouseButtonDown (0)) 
+			{
+				if(checkTouchPosition())
+				{
+					isSky = true;
+					towerBox.towerRigidbody.useGravity = true;
+					tower.transform.parent = towerListParent.transform;
+				}
+			}
 		}
 	}
 
@@ -88,8 +97,6 @@ public class Control : MonoBehaviour {
 
 	void OnCollision(string _tag, GameObject _towerObj, int _towerIndex, int _topIndex)
     {
-
-
         Debug.Log("_tag:" + _tag + " _towerIndex:" + _towerIndex + " _topIndex:" + _topIndex + " count:" + count);
 
 		towerBox.OnCollision -= OnCollision;
@@ -137,12 +144,15 @@ public class Control : MonoBehaviour {
 
 		UIControl.Instance.setHouseNumber (towerBoxList.Count + 1);		//change house number
 		UIControl.Instance.setTimeBarNumber (5);
-//		if (_topIndex == 0)
+		timeSlider.value = timeSlider.value++;
+	}
+
+	public bool checkTouchPosition(){
+		if (Input.mousePosition.x > 0 && Input.mousePosition.x < 1024) 
 		{
-//			Debug.Log ("_sliderValue" + timeSlider.sliderValue);
-			timeSlider.value = timeSlider.value++;
-//			timeSlider.sliderValue = 0.1f;
-//			timeSlider.value = 0.1f;
+			if(Input.mousePosition.y > 0 && Input.mousePosition.y < 400)
+				return true;
 		}
+		return false;
 	}
 }
